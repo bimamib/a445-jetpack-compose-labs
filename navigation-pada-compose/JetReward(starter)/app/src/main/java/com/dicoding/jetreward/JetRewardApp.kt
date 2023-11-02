@@ -64,7 +64,11 @@ fun JetRewardApp(
             }
             composable(Screen.Cart.route) {
                 val context = LocalContext.current
-                CartScreen(onOrderButtonClicked = { message -> shareOrder(context, message) })
+                CartScreen(
+                    onOrderButtonClicked = { message ->
+                        shareOrder(context, message)
+                    }
+                )
             }
             composable(Screen.Profile.route) {
                 ProfileScreen()
