@@ -1,6 +1,7 @@
 package com.dicoding.jetreward
 
 import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -144,7 +145,11 @@ private fun BottomBar(
 }
 
 private fun shareOrder(context: Context, summary: String) {
-
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.dicoding_reward))
+        putExtra(Intent.EXTRA_TEXT, summary)
+    }
 }
 
 @Preview(showBackground = true)
