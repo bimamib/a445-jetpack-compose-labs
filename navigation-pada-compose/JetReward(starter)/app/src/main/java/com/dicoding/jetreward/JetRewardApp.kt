@@ -1,5 +1,6 @@
 package com.dicoding.jetreward
 
+import android.content.Context
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -140,6 +141,10 @@ private fun BottomBar(
             )
         }
     }
+}
+
+private fun shareOrder(context: Context, summary: String) {
+
 }
 
 @Preview(showBackground = true)
