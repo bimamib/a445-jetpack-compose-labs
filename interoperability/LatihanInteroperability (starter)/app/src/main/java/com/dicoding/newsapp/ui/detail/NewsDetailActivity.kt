@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.webkit.WebViewClient
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Box
@@ -14,9 +15,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -39,12 +43,46 @@ class NewsDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        newsDetail = IntentCompat.getParcelableExtra(intent, NEWS_DATA, NewsEntity::class.java) as NewsEntity
+
+        // pindah posisi ke sebelum setContent
+        newsDetail =
+            IntentCompat.getParcelableExtra(intent, NEWS_DATA, NewsEntity::class.java) as NewsEntity
+
+        setContent {
+            MaterialTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    NewsDetailScreen(
+                        newsDetail,
+                        viewModel
+                    )
+                }
+            }
+        }
     }
 
     companion object {
         const val NEWS_DATA = "data"
     }
+}
+
+@Composable
+fun NewsDetailScreen(
+    newsDetail: NewsEntity,
+    viewModel: NewsDetailViewModel,
+) {
+    viewModel.setNewsData(newsDetail)
+    val bookmarkStatus by viewModel.bookmarkStatus.observeAsState(false)
+    NewsDetailContent(
+        newsDetail.title,
+        newsDetail.url.toString(),
+        bookmarkStatus,
+        updateBookmarkStatus = {
+            viewModel.changeBookmark(newsDetail)
+        }
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -82,7 +120,11 @@ fun NewsDetailContent(
         },
         modifier = modifier
     ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+        ) {
 
         }
     }
