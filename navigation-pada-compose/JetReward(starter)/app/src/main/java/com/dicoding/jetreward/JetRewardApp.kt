@@ -150,6 +150,12 @@ private fun shareOrder(context: Context, summary: String) {
         putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.dicoding_reward))
         putExtra(Intent.EXTRA_TEXT, summary)
     }
+
+    context.startActivity(
+        Intent.createChooser(
+            intent, context.getString(R.string.dicoding_reward)
+        )
+    )
 }
 
 @Preview(showBackground = true)
