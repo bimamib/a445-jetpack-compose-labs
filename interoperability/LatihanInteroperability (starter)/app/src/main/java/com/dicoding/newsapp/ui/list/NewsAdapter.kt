@@ -31,17 +31,17 @@ class NewsAdapter(private val onItemClick: (NewsEntity) -> Unit) : ListAdapter<N
         binding.root
     ) {
         fun bind(news: NewsEntity) {
-            binding.tvItemTitle.text = news.title
-            binding.tvItemPublishedDate.text = news.publishedAt
-            Glide.with(itemView.context)
-                .load(news.urlToImage)
-                .apply(
-                    RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error)
-                )
-                .into(binding.imgPoster)
-            itemView.setOnClickListener {
-                onItemClick(news)
-            }
+//            binding.tvItemTitle.text = news.title
+//            binding.tvItemPublishedDate.text = news.publishedAt
+//            Glide.with(itemView.context)
+//                .load(news.urlToImage)
+//                .apply(
+//                    RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error)
+//                )
+//                .into(binding.imgPoster)
+//            itemView.setOnClickListener {
+//                onItemClick(news)
+//            }
         }
     }
 
